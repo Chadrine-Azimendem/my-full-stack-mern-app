@@ -3,16 +3,19 @@ export const writeCookie = (key, value, days) => {
 	days = days || 365;
 
 	date.setDate(date.getDate() + days);
-	let cookie = (document.cookie =
-		key + "=" + value + "; expires=" + date.toGMTString() + "; path=/");
+
+	let cookie = document.cookie;
+	cookie = key + "=" + value + "; expires=" + date.toGMTString() + "; path=/";
 	return cookie;
 };
 
 export const getCookie = (cookieName) => {
-	// thepattern we want to find in our cookie
-	const re = new RegExp(`(?<=${cookieName}=)[^;]*`);
+	// Specify the pattern we want to find in our cookie
+	const regPattern = new RegExp(`(?<=${cookieName}=)[^;]*`);
 	try {
-		let cookie = document.cookie.match(re)[0];
+		//check if the name of the cookie exists in the browser
+		let cookie = document.cookie.match(regPattern)[0]; // will raise a TypeError if the cookie isn't found
+		console.log(cookie);
 		return cookie;
 	} catch (error) {
 		console.log("cookie not found");

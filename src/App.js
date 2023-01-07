@@ -1,29 +1,33 @@
 import React from "react";
 import { useState, useEffect } from "react";
+
+import "./App.css";
 // import MovieCard from "./components/MovieCard";
 import CreateUser from "./components/CreateUser";
 import UsersList from "./components/UsersList";
 import LogIn from "./components/LogIn";
 import Update from "./components/Update";
 import DeleteUser from "./components/DeleteUser";
+
 import { authCheck } from "./utils";
-import "./App.css";
 import { getCookie } from "./common";
 
+// store the API url in API_URL variable
 // const API_URL = "http://www.omdbapi.com/?i=tt3896198&apikey=e3976222";
 
 const App = () => {
+	// movies states
 	// const [searchMovie, setSearchMovie] = useState("");
 	// const [movies, setMovies] = useState([]);
 
+	// set state to update user and cookie
 	const [user, setUser] = useState();
-	// const [updates, setUpdates] = useState();
+	const [cookie, setCookie] = useState();
 
 	// useEffect(() => {
 	//   fetchMovies("Batman");
 	// }, []);
 
-	// fix this in a later time
 	useEffect(() => {
 		let cookie = getCookie("jwt_token");
 		if (cookie !== false) {
@@ -34,6 +38,7 @@ const App = () => {
 	const loginWithToken = async (cookie) => {
 		const user = await authCheck(cookie);
 		setUser(user);
+		setCookie(cookie);
 	};
 
 	// const fetchMovies = async (movieTitle) => {
@@ -73,20 +78,18 @@ const App = () => {
 
 		<div className="app">
 			<CreateUser />
-			<UsersList />
-			<LogIn setter={setUser} />
+
+			<LogIn setter={setUser} cookie={setCookie} />
 			{user ? (
-				<h2> Hello welcome {user} you have logged in</h2>
+				<>
+					<h2> Hello welcome {user} you have logged in</h2>
+					<UsersList cookie={cookie} />
+					<Update user={user} />
+					<DeleteUser user={user} />
+				</>
 			) : (
 				<h2>Please login</h2>
 			)}
-			<Update />
-			{/* {updates ? (
-				<h2> details updated successfuly to {updates}</h2>
-			) : (
-				<h2>Nothing updated yet</h2>
-			)} */}
-			<DeleteUser />
 		</div>
 	);
 };

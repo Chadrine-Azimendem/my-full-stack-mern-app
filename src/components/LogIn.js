@@ -1,15 +1,16 @@
 import React from "react";
 import { useState } from "react";
+
 import { userLogin } from "../utils";
 
-const LogIn = ({ setter }) => {
+const LogIn = ({ setter, cookie }) => {
 	const [username, setUsername] = useState();
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
 
 	const LogInHandler = async (event) => {
 		event.preventDefault();
-		await userLogin(username, email, password, setter);
+		await userLogin(username, email, password, setter, cookie);
 	};
 
 	return (
@@ -30,13 +31,13 @@ const LogIn = ({ setter }) => {
 				/>
 				<input
 					onChange={(e) => setPassword(e.target.value)}
-					placeholder="Create password"
+					placeholder="Password"
 					type="password"
 					required
 				/>
 
 				<button className="btn" type="submit">
-					LogIn
+					Click Here to LogIn
 				</button>
 			</form>
 		</div>

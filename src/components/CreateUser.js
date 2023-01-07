@@ -3,13 +3,15 @@ import { useState } from "react";
 import "../App.css";
 import { createUser } from "../utils";
 
-const CreateUser = () => {
+const CreateUser = ({ user }) => {
 	const [username, setUsername] = useState();
 	const [email, setEmail] = useState();
 	const [password, setPassword] = useState();
 
 	const submitHandler = async (event) => {
 		event.preventDefault();
+
+		// log entered data in the console
 		console.log(username);
 		console.log(email);
 		console.log(password);
@@ -21,13 +23,13 @@ const CreateUser = () => {
 			<h1 className="sub-title">Sign Up form</h1>
 			<form className="form" onSubmit={submitHandler}>
 				<input
-					placeholder="Your username"
+					placeholder="Eter Your username"
 					onChange={(e) => setUsername(e.target.value)}
 					type="text"
 					required
 				/>
 				<input
-					placeholder="Your email"
+					placeholder="Enter Your email"
 					onChange={(e) => setEmail(e.target.value)}
 					type="text"
 					required
@@ -40,7 +42,7 @@ const CreateUser = () => {
 				/>
 
 				<button className="btn" type="submit">
-					Signup
+					Click Here to Signup
 				</button>
 			</form>
 		</div>

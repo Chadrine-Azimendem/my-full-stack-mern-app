@@ -21,7 +21,25 @@ export const createUser = async (username, email, password) => {
 	}
 };
 
-export const userLogin = async (username, email, password, setter) => {
+// read operation
+export const listAllUsers = async (cookie) => {
+	try {
+		const response = await fetch("http://localhost:5001/readData", {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json"
+				// "Authorization": `Bearer ${cookie}`
+			}
+		});
+		const data = await response.json();
+		const usersArr = data.users;
+		return usersArr;
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+export const userLogin = async (username, email, password, setter, cookie) => {
 	try {
 		const response = await fetch("http://localhost:5001/userLogin", {
 			method: "POST",
@@ -37,6 +55,7 @@ export const userLogin = async (username, email, password, setter) => {
 		const data = await response.json();
 		console.log(data);
 		setter(data.username);
+		cookie(data.token);
 		writeCookie("jwt_token", data.token, 7);
 	} catch (error) {
 		console.log(error);
@@ -63,29 +82,13 @@ export const updateData = async (username, field, to) => {
 	}
 };
 
-export const listAllUsers = async () => {
+export const authCheck = async (jwtToken) => {
 	try {
-		const response = await fetch("http://localhost:5001/readData", {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json"
-			}
-		});
-		const data = await response.json();
-		const usersArr = data.users;
-		return usersArr;
-	} catch (error) {
-		console.log(error);
-	}
-};
-
-export const authCheck = async (cookieValue) => {
-	try {
-		const response = await fetch("http://localhost:5001/authCheck", {
+		const response = await fetch("http://localhost:5001/persistantLogin", {
 			method: "GET",
 			headers: {
 				"Content-Type": "application/json",
-				"AuThorization": `Bearer ${cookieValue}`
+				"Authorization": `Bearer ${jwtToken}`
 			}
 		});
 		const data = await response.json();
@@ -100,9 +103,7 @@ export const deleteUser = async (username) => {
 	try {
 		const response = await fetch("http://localhost:5001/deleteData", {
 			method: "DELETE",
-			headers: {
-				"Content-Type": "application/json"
-			},
+			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
 				"username": username
 			})
