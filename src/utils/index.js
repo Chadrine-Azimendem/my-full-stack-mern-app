@@ -98,11 +98,14 @@ export const persistantLogin = async (jwtToken) => {
 	}
 };
 
-export const deleteUser = async (username) => {
+export const deleteUser = async (username, jwtToken) => {
 	try {
 		const response = await fetch("http://localhost:5001/deleteData", {
 			method: "DELETE",
-			headers: { "Content-Type": "application/json" },
+			headers: {
+				"Content-Type": "application/json",
+				"Authorization": `Bearer ${jwtToken}`
+			},
 			body: JSON.stringify({
 				"username": username
 			})
