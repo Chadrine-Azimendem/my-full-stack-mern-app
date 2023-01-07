@@ -39,7 +39,7 @@ export const listAllUsers = async (cookie) => {
 	}
 };
 
-export const userLogin = async (username, email, password, setter, cookie) => {
+export const userLogin = async (username, email, password, setter) => {
 	try {
 		const response = await fetch("http://localhost:5001/userLogin", {
 			method: "POST",
@@ -55,7 +55,6 @@ export const userLogin = async (username, email, password, setter, cookie) => {
 		const data = await response.json();
 		console.log(data);
 		setter(data.username);
-		cookie(data.token);
 		writeCookie("jwt_token", data.token, 7);
 	} catch (error) {
 		console.log(error);
@@ -82,7 +81,7 @@ export const updateData = async (username, field, to) => {
 	}
 };
 
-export const authCheck = async (jwtToken) => {
+export const persistantLogin = async (jwtToken) => {
 	try {
 		const response = await fetch("http://localhost:5001/persistantLogin", {
 			method: "GET",
@@ -92,7 +91,7 @@ export const authCheck = async (jwtToken) => {
 			}
 		});
 		const data = await response.json();
-		console.log(data);
+		console.log("success:", data.success);
 		return data.username;
 	} catch (error) {
 		console.log(error);

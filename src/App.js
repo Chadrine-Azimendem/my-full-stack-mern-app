@@ -9,7 +9,7 @@ import LogIn from "./components/LogIn";
 import Update from "./components/Update";
 import DeleteUser from "./components/DeleteUser";
 
-import { authCheck } from "./utils";
+import { persistantLogin } from "./utils";
 import { getCookie } from "./common";
 
 // store the API url in API_URL variable
@@ -36,7 +36,7 @@ const App = () => {
 	}, []);
 
 	const loginWithToken = async (cookie) => {
-		const user = await authCheck(cookie);
+		const user = await persistantLogin(cookie);
 		setUser(user);
 		setCookie(cookie);
 	};

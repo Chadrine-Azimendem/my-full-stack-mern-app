@@ -4,8 +4,8 @@ export const writeCookie = (key, value, days) => {
 
 	date.setDate(date.getDate() + days);
 
-	let cookie = document.cookie;
-	cookie = key + "=" + value + "; expires=" + date.toGMTString() + "; path=/";
+	let cookie = (document.cookie =
+		key + "=" + value + "; expires=" + date.toGMTString() + "; path=/");
 	return cookie;
 };
 
@@ -15,7 +15,7 @@ export const getCookie = (cookieName) => {
 	try {
 		//check if the name of the cookie exists in the browser
 		let cookie = document.cookie.match(regPattern)[0]; // will raise a TypeError if the cookie isn't found
-		console.log(cookie);
+		// console.log(cookie);
 		return cookie;
 	} catch (error) {
 		console.log("cookie not found");
