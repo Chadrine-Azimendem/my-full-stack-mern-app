@@ -5,15 +5,24 @@ body {
 		"Helvetica Neue", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	height: 100%;
 }
 
 .app {
 	text-align: center;
+	display: flex;
+	flex-direction: column;
+	margin: 2rem auto;
+	justify-content: space-around;
+	align-items: center;
 }
 
 .searchInput {
 	display: flex;
 	flex-direction: row;
+	align-items: center;
+	width: 93%;
+	justify-content: flex-start;
 }
 
 .form {
@@ -25,11 +34,10 @@ body {
 }
 
 input {
-	background-color: #303245;
-	border-radius: 12px;
-	border: 0;
+	background-color: #292b3b29;
+	border: 2px solid #b08e8e;
 	box-sizing: border-box;
-	color: #eee;
+	box-shadow: rgb(0 0 0 / 52%) 0 4px 12px;
 	font-size: 18px;
 	height: 100%;
 	outline: 0;
@@ -44,11 +52,10 @@ input::placeholder {
 
 button {
 	align-items: center;
-	border: 2px solid linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb);
-	background-color: rgb(5, 6, 45);
-	border: 0;
-	border-radius: 8px;
-	box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+	background-color: #ac7a59;
+	border: 1px solid bisque;
+	border-radius: 4px;
+	box-shadow: rgb(0 0 0 / 52%) 0 4px 12px;
 	box-sizing: border-box;
 	color: #ffffff;
 	display: flex;
@@ -62,17 +69,19 @@ button {
 	user-select: none;
 	-webkit-user-select: none;
 	cursor: pointer;
-	transition: 300ms;
+	margin-left: 1rem;
 }
 
 button:active,
 button:hover {
-	outline: 0;
+	background-color: #e0d9d4;
+	color: #fb8332;
+	border: 2px solid #fb8332;
 }
 
-button:hover span {
+/* button:hover span {
 	background: none;
-}
+} */
 
 .users-container {
 	display: flex;
@@ -94,6 +103,7 @@ button:hover span {
 
 @media (min-width: 768px) {
 	button {
+		min-width: 139px;
 		font-size: 24px;
 		min-width: 196px;
 	}

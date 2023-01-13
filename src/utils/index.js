@@ -3,17 +3,20 @@ import { writeCookie } from "../common";
 // Create new user
 export const createUser = async (username, email, password) => {
 	try {
-		const response = await fetch("http://localhost:5001/createAccount", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify({
-				"username": username,
-				"email": email,
-				"password": password
-			})
-		});
+		const response = await fetch(
+			`${process.env.REACT_APP_REST_API_URL}createAccount`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({
+					"username": username,
+					"email": email,
+					"password": password
+				})
+			}
+		);
 		const data = await response.json();
 		console.log(data);
 	} catch (error) {
@@ -24,13 +27,16 @@ export const createUser = async (username, email, password) => {
 // read operation
 export const listAllUsers = async (cookie) => {
 	try {
-		const response = await fetch("http://localhost:5001/readData", {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json"
-				// "Authorization": `Bearer ${cookie}`
+		const response = await fetch(
+			`${process.env.REACT_APP_REST_API_URL}readData`,
+			{
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json"
+					// "Authorization": `Bearer ${cookie}`
+				}
 			}
-		});
+		);
 		const data = await response.json();
 		const usersArr = data.users;
 		return usersArr;
@@ -41,17 +47,20 @@ export const listAllUsers = async (cookie) => {
 
 export const userLogin = async (username, email, password, setter) => {
 	try {
-		const response = await fetch("http://localhost:5001/userLogin", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify({
-				"username": username,
-				"email": email,
-				"password": password
-			})
-		});
+		const response = await fetch(
+			`${process.env.REACT_APP_REST_API_URL}userLogin`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({
+					"username": username,
+					"email": email,
+					"password": password
+				})
+			}
+		);
 		const data = await response.json();
 		console.log(data);
 		setter(data.username);
@@ -63,17 +72,20 @@ export const userLogin = async (username, email, password, setter) => {
 
 export const updateData = async (username, field, to) => {
 	try {
-		const response = await fetch("http://localhost:5001/updateUser", {
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json"
-			},
-			body: JSON.stringify({
-				"username": username,
-				"field": field,
-				"to": to
-			})
-		});
+		const response = await fetch(
+			`${process.env.REACT_APP_REST_API_URL}updateUser`,
+			{
+				method: "PUT",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({
+					"username": username,
+					"field": field,
+					"to": to
+				})
+			}
+		);
 		const data = await response.json();
 		console.log(data);
 	} catch (error) {
@@ -83,13 +95,16 @@ export const updateData = async (username, field, to) => {
 
 export const persistantLogin = async (jwtToken) => {
 	try {
-		const response = await fetch("http://localhost:5001/persistantLogin", {
-			method: "GET",
-			headers: {
-				"Content-Type": "application/json",
-				"Authorization": `Bearer ${jwtToken}`
+		const response = await fetch(
+			`${process.env.REACT_APP_REST_API_URL}persistantLogin`,
+			{
+				method: "GET",
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${jwtToken}`
+				}
 			}
-		});
+		);
 		const data = await response.json();
 		console.log("success:", data.success);
 		return data.username;
@@ -100,16 +115,19 @@ export const persistantLogin = async (jwtToken) => {
 
 export const deleteUser = async (username, jwtToken) => {
 	try {
-		const response = await fetch("http://localhost:5001/deleteData", {
-			method: "DELETE",
-			headers: {
-				"Content-Type": "application/json",
-				"Authorization": `Bearer ${jwtToken}`
-			},
-			body: JSON.stringify({
-				"username": username
-			})
-		});
+		const response = await fetch(
+			`${process.env.REACT_APP_REST_API_URL}deleteData`,
+			{
+				method: "DELETE",
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${jwtToken}`
+				},
+				body: JSON.stringify({
+					"username": username
+				})
+			}
+		);
 		const data = await response.json();
 		console.log(data);
 	} catch (error) {
